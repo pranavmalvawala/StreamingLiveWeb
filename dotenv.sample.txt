@@ -1,3 +1,5 @@
+PORT=3200
+
 # Modify and save this file as ".env"
 REACT_APP_ACCESSMANAGEMENT_API_URL=http://localhost:8082
 REACT_APP_STREAMINGLIVE_API_URL=http://localhost:8200
