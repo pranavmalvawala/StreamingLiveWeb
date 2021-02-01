@@ -45,10 +45,10 @@ export const HomeRegister: React.FC = () => {
             console.log(JSON.stringify(church));
             if (church != null) {
                 btn.innerHTML = "Configuring..."
-                var resp: LoginResponseInterface = await ApiHelper.post("/churches/init", { appName: "StreamingLive" }, "AccessApi");
+                var resp: LoginResponseInterface = await ApiHelper.post("/churches/init", { appName: "StreamingLive" }, "StreamingLiveApi");
                 if (resp.errors !== undefined) { setErrors(resp.errors); return 0; }
                 else {
-                    window.location.href = EnvironmentHelper.SubUrl.replace("{key}", church.subDomain) + "/login/" + ApiHelper.getConfig("AccessApi").jwt;
+                    window.location.href = EnvironmentHelper.SubUrl.replace("{key}", church.subDomain) + "/login/?jwt=" + ApiHelper.getConfig("AccessApi").jwt;
                 }
             }
         }

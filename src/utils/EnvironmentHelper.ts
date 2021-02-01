@@ -19,8 +19,8 @@ export class EnvironmentHelper {
     }
 
     static initDev = () => {
-        EnvironmentHelper.AccessApi = process.env.REACT_APP_ACCESSMANAGEMENT_API_URL || "";
-        EnvironmentHelper.StreamingLiveApi = process.env.REACT_APP_STREAMINGLIVE_API_URL || "";
+        EnvironmentHelper.AccessApi = process.env.REACT_APP_ACCESS_API || "";
+        EnvironmentHelper.StreamingLiveApi = process.env.REACT_APP_STREAMINGLIVE_API || "";
         EnvironmentHelper.SubUrl = process.env.REACT_APP_SUB_URL;
     }
 
