@@ -4,6 +4,7 @@ export class EnvironmentHelper {
     private static AccessApi = "";
     private static StreamingLiveApi = "";
     static SubUrl = "";
+    static supportEmail = process.env.REACT_APP_SUPPORT_EMAIL;
 
     static init = () => {
         switch (process.env.REACT_APP_STAGE) {

@@ -24,7 +24,7 @@
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "start": "export REACT_APP_STAGE=dev&& react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "predeploy-staging": "export REACT_APP_STAGE=staging&& npm run build",
     "exec-deploy-staging": "aws s3 sync build/ s3://staging-streaminglive-web",
