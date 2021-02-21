@@ -10,5 +10,7 @@ REACT_APP_SUB_URL=http://{key}.localhost:3201
 #REACT_APP_ACCESS_API=https://accessapi.staging.churchapps.org
 #REACT_APP_STREAMINGLIVE_API=http://api.staging.streaminglive.church
 #REACT_APP_SUB_URL=http://{key}.localhost:3201
+REACT_APP_ACCOUNTS_APP_URL=https://accounts.staging.churchapps.org
+REACT_APP_CHURCH_APPS_URL=https://staging.churchapps.org
 
 REACT_APP_SUPPORT_EMAIL=

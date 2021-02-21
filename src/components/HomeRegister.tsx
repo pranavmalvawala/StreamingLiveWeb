@@ -37,6 +37,17 @@ export const HomeRegister: React.FC = () => {
         if (await validate()) {
             btn.innerHTML = "Registering. Please wait..."
             btn.setAttribute("disabled", "disabled");
+            // check if user already exist and if so, return user's associated churches
+            const verifyResponse = await ApiHelper.postAnonymous("/users/verifyCredentials", { email, password }, "AccessApi");
+            if (verifyResponse.errors !== undefined || verifyResponse.churches !== undefined) {
+                const errorMessage = <>There is already an account with this email address, please <a href={EnvironmentHelper.AccountsAppUrl}>login</a> to manage your churches and apps. If you wish to create a new church with this email, please register from <a href={EnvironmentHelper.ChurchAppUrl}>ChurchApps</a></>;
+                setErrors([errorMessage]);
+
+                btn.innerHTML = "Register"
+                btn.removeAttribute("disabled");
+                
+                return;
+            }
 
             var church: ChurchInterface = null;
 
