@@ -28,11 +28,11 @@
     "build": "react-scripts build",
     "predeploy-staging": "export REACT_APP_STAGE=staging&& npm run build",
     "exec-deploy-staging": "aws s3 sync build/ s3://staging-streaminglive-web",
-    "postdeploy-staging": "aws cloudfront create-invalidation --distribution-id EZS5Z2QZNKQU7 --paths /*",
+    "postdeploy-staging": "aws cloudfront create-invalidation --distribution-id EZS5Z2QZNKQU7 --paths \"/*\"",
     "deploy-staging": "npm run predeploy-staging && npm run exec-deploy-staging && npm run postdeploy-staging",
     "predeploy-prod": "export REACT_APP_STAGE=prod&& npm run build",
     "exec-deploy-prod": "aws s3 sync build/ s3://streaminglive-web",
-    "postdeploy-prod": "aws cloudfront create-invalidation --distribution-id E3QBHTHJE4U3T4 --paths /*",
+    "postdeploy-prod": "aws cloudfront create-invalidation --distribution-id E3QBHTHJE4U3T4 --paths \"/*\"",
     "deploy-prod": "npm run predeploy-prod && npm run exec-deploy-prod && npm run postdeploy-prod",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
