@@ -1,13 +1,13 @@
 import React from "react";
 import UserContext from "./UserContext";
 import { LoginPage } from "./appBase/pageComponents/LoginPage";
-import { SelectChurchModal } from "./components";
-import { ApiHelper, UserHelper } from "./utils"
+import { SelectChurchModal, ChurchInterface } from "./components";
+import { ApiHelper, UserHelper, EnvironmentHelper } from "./utils"
 
 export const Login: React.FC = (props: any) => {
 
     const [modalShow, setModalShow] = React.useState(false);
-    const [churches, setChurches] = React.useState([]);
+    const [churches, setChurches] = React.useState<ChurchInterface[]>([]);
 
     const getCookieValue = (a: string) => {
         var b = document.cookie.match("(^|;)\\s*" + a + "\\s*=\\s*([^;]+)");
@@ -17,7 +17,6 @@ export const Login: React.FC = (props: any) => {
     const successCallback = () => {
         setChurches(UserHelper.churches);
         setModalShow(true);
-        console.log(ApiHelper.apiConfigs);
     }
 
     const context = React.useContext(UserContext);
@@ -28,10 +27,17 @@ export const Login: React.FC = (props: any) => {
     if (jwt === undefined || jwt === null) jwt = "";
     if (auth === undefined || auth === null) auth = "";
 
+    const selectChurch = (selectedChurch: string) => {
+        const jwt = ApiHelper.getConfig("StreamingLiveApi").jwt;
+        window.location.href = (EnvironmentHelper.SubUrl.replace("{key}", selectedChurch) + "/login/" + jwt);
+    }
+
     const getModal = () => {
-        console.log(churches);
-        if (churches.length > 0) return (<SelectChurchModal show={modalShow} onHide={() => setModalShow(false)} churchs={churches} />)
-        else return null;
+        if (churches.length > 1) return (<SelectChurchModal show={modalShow} onHide={() => setModalShow(false)} churches={churches} selectChurch={selectChurch} />)
+        else if (churches.length === 1) {
+            selectChurch(churches[0].subDomain);
+        }
+        return null;
     }
 
     return (
