@@ -53,7 +53,7 @@ export const HomeRegister: React.FC = () => {
 
             //Create Access
             church = await createAccess();
-            console.log(JSON.stringify(church));
+
             if (church != null) {
                 btn.innerHTML = "Configuring..."
                 var resp: LoginResponseInterface = await ApiHelper.post("/churches/init", { appName: "StreamingLive" }, "StreamingLiveApi");
@@ -64,6 +64,7 @@ export const HomeRegister: React.FC = () => {
             }
         }
         btn.innerHTML = "Register"
+        btn.removeAttribute("disabled");
     }
 
     const createAccess = async () => {
