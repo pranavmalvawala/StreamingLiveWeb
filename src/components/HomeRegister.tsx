@@ -16,7 +16,7 @@ export const HomeRegister: React.FC = () => {
             case "email": setEmail(val); break;
             case "password": setPassword(val); break;
             case "churchName": setChurchName(val); break;
-            case "subDomain": setSubDomain(val); break;
+            case "subDomain": setSubDomain(val.toLowerCase().replaceAll(/[^a-z0-9]/ig, "")); break;
         }
     }
 
