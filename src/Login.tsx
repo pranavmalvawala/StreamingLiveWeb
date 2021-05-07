@@ -1,35 +1,30 @@
 import React from "react";
+import { useCookies } from 'react-cookie';
 import UserContext from "./UserContext";
 import { LoginPage } from "./appBase/pageComponents/LoginPage";
 import { SelectChurchModal, ChurchInterface } from "./components";
 import { ApiHelper, UserHelper, EnvironmentHelper } from "./utils"
 
 export const Login: React.FC = (props: any) => {
-
     const [modalShow, setModalShow] = React.useState(false);
     const [churches, setChurches] = React.useState<ChurchInterface[]>([]);
-
-    const getCookieValue = (a: string) => {
-        var b = document.cookie.match("(^|;)\\s*" + a + "\\s*=\\s*([^;]+)");
-        return b ? b.pop() : "";
-    };
+    const [cookies] = useCookies(['jwt']);
+    const context = React.useContext(UserContext);
 
     const successCallback = () => {
         setChurches(UserHelper.churches);
         setModalShow(true);
     }
 
-    const context = React.useContext(UserContext);
-
     let search = new URLSearchParams(props.location?.search);
-    var jwt = search.get("jwt") || getCookieValue("jwt");
+    var jwt = search.get("jwt") || cookies.jwt;
     let auth = search.get("auth");
-    if (jwt === undefined || jwt === null) jwt = "";
-    if (auth === undefined || auth === null) auth = "";
+    if (!jwt) jwt = "";
+    if (!auth) auth = "";
 
     const selectChurch = (selectedChurch: string) => {
         const jwt = ApiHelper.getConfig("StreamingLiveApi").jwt;
-        window.location.href = (EnvironmentHelper.SubUrl.replace("{key}", selectedChurch) + "/login/" + jwt);
+        window.location.href = (EnvironmentHelper.SubUrl.replace("{key}", selectedChurch) + "/login?jwt=" + jwt);
     }
 
     const getModal = () => {
@@ -42,7 +37,7 @@ export const Login: React.FC = (props: any) => {
 
     return (
         <>
-            <LoginPage auth={auth} context={context} jwt={jwt} successCallback={successCallback} />
+            <LoginPage auth={auth} context={context} jwt={jwt} successCallback={successCallback} appName="StreamingLive" />
             { getModal()}
         </>
     );

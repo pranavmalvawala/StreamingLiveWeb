@@ -88,11 +88,11 @@ export const HomeRegister: React.FC = () => {
     }
 
     const addHostRole = async (church: ChurchInterface, user: UserInterface) => {
-        var role: RoleInterface = { appName: "StreamingLive", churchId: church.id, name: "Hosts" };
+        var role: RoleInterface = { churchId: church.id, name: "Hosts" };
         role.id = (await ApiHelper.post("/roles", [role], "AccessApi"))[0].id;
 
         const permissions: RolePermissionInterface[] = [];
-        permissions.push({ churchId: church.id, contentType: "Chat", action: "Host", roleId: role.id });
+        permissions.push({ churchId: church.id, apiName: 'MessagingApi', contentType: "Chat", action: "Host", roleId: role.id });
         await ApiHelper.post("/rolepermissions", permissions, "AccessApi");
     }
 
