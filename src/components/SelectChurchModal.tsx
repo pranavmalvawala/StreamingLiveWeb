@@ -7,22 +7,18 @@ interface props {
     onHide: () => void
     selectChurch: (subdomain: string) => void
 }
-export const SelectChurchModal: React.FC<props> = (props) => {
-    return (
-        <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered >
-            <Modal.Header closeButton className="text-center">
-                <h3 className="text-center">Select Church</h3>
-            </Modal.Header>
-            <Modal.Body>
-                <Container>
-                    <Row className="justify-content-sm-center">
-                        {props.churches.map(c => {
-                            return (<Button key={c.id} variant="info" onClick={() => props.selectChurch(c.subDomain)} className="m-3">{c.name}</Button>);
-                        })}
-                    </Row>
-                </Container>
+export const SelectChurchModal: React.FC<props> = (props) => (
+  <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
+    <Modal.Header closeButton className="text-center">
+      <h3 className="text-center">Select Church</h3>
+    </Modal.Header>
+    <Modal.Body>
+      <Container>
+        <Row className="justify-content-sm-center">
+          {props.churches.map(c => (<Button key={c.id} variant="info" onClick={() => props.selectChurch(c.subDomain)} className="m-3">{c.name}</Button>))}
+        </Row>
+      </Container>
 
-            </Modal.Body>
-        </Modal>
-    );
-}
+    </Modal.Body>
+  </Modal>
+)
