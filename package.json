@@ -38,7 +38,13 @@
     "postdeploy-prod": "aws cloudfront create-invalidation --distribution-id E3QBHTHJE4U3T4 --paths \"/*\"",
     "deploy-prod": "npm run predeploy-prod && npm run exec-deploy-prod && npm run postdeploy-prod",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "npm run lint:fix"
+    ]
   },
   "browserslist": {
     "production": [
@@ -54,6 +60,8 @@
   },
   "devDependencies": {
     "@types/react-csv": "^1.1.1",
-    "google-charts": "^2.0.0"
+    "google-charts": "^2.0.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0"
   }
 }
