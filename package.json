@@ -14,6 +14,7 @@
     "@types/react-router-dom": "^5.1.5",
     "date-fns": "^2.14.0",
     "react": "^16.13.1",
+    "react-activity": "^2.0.1",
     "react-bootstrap": "^1.3.0",
     "react-cookie": "^4.0.3",
     "react-cropper": "^1.3.0",
@@ -28,7 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint:only": "eslint --ext ts,tsx",
+    "lint:only": "eslint --ext ts,tsx,js",
     "lint:fix": "npm run lint:only -- --fix",
     "predeploy-staging": "export REACT_APP_STAGE=staging&& npm run build",
     "exec-deploy-staging": "aws s3 sync build/ s3://staging-streaminglive-web",
@@ -43,7 +44,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
+    "src/**/*.{ts,tsx,js}": [
       "npm run lint:fix"
     ]
   },

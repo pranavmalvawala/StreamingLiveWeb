@@ -9,13 +9,13 @@ export class EnvironmentHelper {
 
     static init = () => {
       switch (process.env.REACT_APP_STAGE) {
-      case "staging": EnvironmentHelper.initStaging(); break;
-      case "prod": EnvironmentHelper.initProd(); break;
-      default: EnvironmentHelper.initDev(); break;
+        case "staging": EnvironmentHelper.initStaging(); break;
+        case "prod": EnvironmentHelper.initProd(); break;
+        default: EnvironmentHelper.initDev(); break;
       }
       ApiHelper.apiConfigs = [
         { keyName: "AccessApi", url: EnvironmentHelper.AccessApi, jwt: "", permisssions: [] },
-        { keyName: "StreamingLiveApi", url: EnvironmentHelper.StreamingLiveApi, jwt: "", permisssions: [] },
+        { keyName: "StreamingLiveApi", url: EnvironmentHelper.StreamingLiveApi, jwt: "", permisssions: [] }
       ];
     }
 
