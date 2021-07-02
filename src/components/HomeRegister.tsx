@@ -1,12 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ApiHelper, RegisterInterface, RoleInterface, LoginResponseInterface, RolePermissionInterface, ErrorMessages, ChurchInterface, UserInterface, EnvironmentHelper } from ".";
+import { ApiHelper, RegisterInterface, RoleInterface, LoginResponseInterface, RolePermissionInterface, ErrorMessages, ChurchInterface, UserInterface, EnvironmentHelper, PersonInterface } from ".";
+import { Row, Col } from "react-bootstrap";
 
 export const HomeRegister: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [churchName, setChurchName] = React.useState("");
   const [subDomain, setSubDomain] = React.useState("");
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
   const [errors, setErrors] = React.useState([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,6 +19,8 @@ export const HomeRegister: React.FC = () => {
       case "password": setPassword(val); break;
       case "churchName": setChurchName(val); break;
       case "subDomain": setSubDomain(val.toLowerCase().replaceAll(/[^a-z0-9]/ig, "")); break;
+      case "firstName": setFirstName(val); break;
+      case "lastName": setLastName(val); break;
     }
   }
 
@@ -25,6 +30,8 @@ export const HomeRegister: React.FC = () => {
     if (subDomain === "") errors.push("Please select a subdomain for your site.");
     if (email === "") errors.push("Please enter your email address.");
     if (password === "") errors.push("Please enter a password.");
+    if (firstName === "") errors.push("Please enter your first name.")
+    if (lastName === "") errors.push("Please enter your last name.")
     setErrors(errors);
     return errors.length === 0;
   }
@@ -51,11 +58,13 @@ export const HomeRegister: React.FC = () => {
       let church: ChurchInterface = null;
 
       //Create Access
-      church = await createAccess();
-
+      let loginResp = await createAccess();
+      church = loginResp.churches.filter(c => c.subDomain === subDomain)[0];
       if (church != null) {
         btn.innerHTML = "Configuring..."
         let resp: LoginResponseInterface = await ApiHelper.post("/churches/init", { appName: "StreamingLive" }, "StreamingLiveApi");
+        const { person }: { person: PersonInterface} = await ApiHelper.post("/churches/init", { user: { displayName: firstName + " " + lastName } }, "MembershipApi");
+        await ApiHelper.post("/userchurch", { personId: person.id }, "AccessApi");
         if (resp.errors !== undefined) { setErrors(resp.errors); return 0; }
         else {
           window.location.href = EnvironmentHelper.SubUrl.replace("{key}", church.subDomain) + "/login/?jwt=" + ApiHelper.getConfig("AccessApi").jwt;
@@ -67,7 +76,7 @@ export const HomeRegister: React.FC = () => {
   }
 
   const createAccess = async () => {
-    let data: RegisterInterface = { churchName: churchName, displayName: email, email: email, password: password, subDomain: subDomain };
+    let data: RegisterInterface = { churchName, displayName: firstName + " " + lastName, email, password, subDomain };
 
     let resp: LoginResponseInterface = await ApiHelper.postAnonymous("/churches/register", data, "AccessApi");
     if (resp.errors !== undefined) { setErrors(resp.errors); return null; }
@@ -80,7 +89,7 @@ export const HomeRegister: React.FC = () => {
         const church = response.churches[0];
         church.apis.forEach(api => { ApiHelper.setPermissions(api.keyName, api.jwt, api.permissions) });
         await addHostRole(church, response.user)
-        return church;
+        return resp;
       }
     }
 
@@ -122,6 +131,18 @@ export const HomeRegister: React.FC = () => {
                       <div className="input-group-append"><span className="input-group-text">.streaminglive.church</span></div>
                     </div>
                   </div>
+                  <Row>
+                    <Col>
+                      <div className="form-group">
+                        <input type="text" className="form-control" placeholder="First Name" name="firstName" value={firstName} onChange={handleChange} />
+                      </div>
+                    </Col>
+                    <Col>
+                      <div className="form-group">
+                        <input type="text" className="form-control" placeholder="Last Name" name="lastName" value={lastName} onChange={handleChange} />
+                      </div>
+                    </Col>
+                  </Row>
                   <div className="form-group">
                     <input type="text" name="email" value={email} className="form-control" placeholder="Email Address" onChange={handleChange} />
                   </div>
