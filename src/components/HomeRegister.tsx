@@ -76,7 +76,7 @@ export const HomeRegister: React.FC = () => {
   }
 
   const createAccess = async () => {
-    let data: RegisterInterface = { churchName, displayName: firstName + " " + lastName, email, password, subDomain };
+    let data: RegisterInterface = { churchName, firstName, lastName, email, password, subDomain };
 
     let resp: LoginResponseInterface = await ApiHelper.postAnonymous("/churches/register", data, "AccessApi");
     if (resp.errors !== undefined) { setErrors(resp.errors); return null; }
