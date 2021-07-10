@@ -63,7 +63,7 @@ export const HomeRegister: React.FC = () => {
       if (church != null) {
         btn.innerHTML = "Configuring..."
         let resp: LoginResponseInterface = await ApiHelper.post("/churches/init", { appName: "StreamingLive" }, "StreamingLiveApi");
-        const { person }: { person: PersonInterface} = await ApiHelper.post("/churches/init", { user: { displayName: firstName + " " + lastName } }, "MembershipApi");
+        const { person }: { person: PersonInterface} = await ApiHelper.post("/churches/init", { user: loginResp.user }, "MembershipApi");
         await ApiHelper.post("/userchurch", { personId: person.id }, "AccessApi");
         if (resp.errors !== undefined) { setErrors(resp.errors); return 0; }
         else {
