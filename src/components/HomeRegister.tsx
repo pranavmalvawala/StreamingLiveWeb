@@ -59,6 +59,13 @@ export const HomeRegister: React.FC = () => {
 
       //Create Access
       let loginResp = await createAccess();
+
+      if (loginResp.errors?.length > 0) {
+        btn.innerHTML = "Register"
+        btn.removeAttribute("disabled");
+        return;
+      }
+
       church = loginResp.churches.filter(c => c.subDomain === subDomain)[0];
       if (church != null) {
         btn.innerHTML = "Configuring..."
@@ -79,7 +86,7 @@ export const HomeRegister: React.FC = () => {
     let data: RegisterInterface = { churchName, firstName, lastName, email, password, subDomain };
 
     let resp: LoginResponseInterface = await ApiHelper.postAnonymous("/churches/register", data, "AccessApi");
-    if (resp.errors !== undefined) { setErrors(resp.errors); return null; }
+    if (resp.errors !== undefined) { setErrors(resp.errors); return resp; }
     else {
       const church = resp.churches[0];
       church.apis.forEach(api => { ApiHelper.setPermissions(api.keyName, api.jwt, api.permissions) });
