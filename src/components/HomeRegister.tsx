@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ApiHelper, RegisterInterface, RoleInterface, LoginResponseInterface, RolePermissionInterface, ErrorMessages, ChurchInterface, UserInterface, EnvironmentHelper, PersonInterface } from ".";
+import { ApiHelper, RegisterInterface, RoleInterface, LoginResponseInterface, RolePermissionInterface, ErrorMessages, ChurchInterface, UserInterface, EnvironmentHelper, PersonInterface, PasswordField } from ".";
 import { Row, Col } from "react-bootstrap";
 
 export const HomeRegister: React.FC = () => {
@@ -153,9 +153,7 @@ export const HomeRegister: React.FC = () => {
                   <div className="form-group">
                     <input type="text" name="email" value={email} className="form-control" placeholder="Email Address" onChange={handleChange} />
                   </div>
-                  <div className="form-group">
-                    <input type="password" name="password" value={password} className="form-control" placeholder="Password" onChange={handleChange} />
-                  </div>
+                  <PasswordField value={password} onChange={handleChange} containerClass="form-group" />
                   <button className="btn btn-lg btn-primary btn-block" onClick={handleRegister}>Register</button>
                 </form>
                 <br />

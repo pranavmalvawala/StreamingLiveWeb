@@ -1,4 +1,4 @@
-export { ErrorMessages, InputBox } from "../appBase/components";
+export { ErrorMessages, InputBox, PasswordField } from "../appBase/components";
 
 export * from "../utils"
 export { HomeBenefits } from "./HomeBenefits"
