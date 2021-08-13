@@ -1,5 +1,5 @@
 import React from "react";
-import { EnvironmentHelper } from "../utils";
+import { EnvironmentHelper } from "../helpers";
 
 interface Props {
   subDomain: string

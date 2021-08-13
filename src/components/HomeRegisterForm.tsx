@@ -4,6 +4,7 @@ import { ApiHelper, RegisterInterface, RoleInterface, LoginResponseInterface, Ro
 import { Row, Col, Form, InputGroup, Button } from "react-bootstrap";
 import * as yup from "yup";
 import { Formik, FormikHelpers } from "formik";
+import ReactGA from "react-ga";
 
 const schema = yup.object().shape({
   churchName: yup.string().required("Please enter your church name."),
@@ -51,6 +52,7 @@ export const HomeRegisterForm: React.FC<Props> = props => {
     setCustomErrors([])
     // check if user already exist and if so, return user's associated churches
 
+    ReactGA.event({ category: "Streaming", action: "Register" });
     let church: ChurchInterface = null;
     let loginResp = await createAccess(values);
     if (loginResp.errors) {

@@ -3,7 +3,7 @@ import { useCookies } from "react-cookie";
 import UserContext from "./UserContext";
 import { LoginPage } from "./appBase/pageComponents/LoginPage";
 import { SelectChurchModal, ChurchInterface } from "./components";
-import { ApiHelper, UserHelper, EnvironmentHelper } from "./utils"
+import { ApiHelper, UserHelper, EnvironmentHelper } from "./helpers"
 
 export const Login: React.FC = (props: any) => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -38,7 +38,7 @@ export const Login: React.FC = (props: any) => {
   return (
     <>
       <LoginPage auth={auth} context={context} jwt={jwt} successCallback={successCallback} appName="StreamingLive" />
-      { getModal()}
+      {getModal()}
     </>
   );
 

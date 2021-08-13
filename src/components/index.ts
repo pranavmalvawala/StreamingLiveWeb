@@ -1,6 +1,6 @@
 export { ErrorMessages, InputBox, PasswordField } from "../appBase/components";
 
-export * from "../utils"
+export * from "../helpers"
 export { HomeBenefits } from "./HomeBenefits"
 export { HomeFeatures } from "./HomeFeatures"
 export { HomeHero } from "./HomeHero"
