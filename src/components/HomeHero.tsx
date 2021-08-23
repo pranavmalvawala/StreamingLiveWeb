@@ -5,7 +5,7 @@ export const HomeHero: React.FC = () => (
     <div className="container">
       <div className="row">
         <div className="col-6">
-          <a href="/"><img src="/images/logo.png" alt="Streaming Live" /></a>
+          <a href="/"><img src="/images/logo-home.png" alt="Streaming Live" /></a>
         </div>
         <div className="col-6 text-right">
           <a href="#register" className="btn btn-info btn-sm">Register</a> &nbsp;
