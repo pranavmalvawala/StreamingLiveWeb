@@ -2,7 +2,7 @@ import React from "react";
 import { useCookies } from "react-cookie";
 import UserContext from "./UserContext";
 import { LoginPage } from "./appBase/pageComponents/LoginPage";
-import { UserHelper, EnvironmentHelper } from "./helpers"
+import { UserHelper, EnvironmentHelper, ChurchInterface, ApiHelper, RoleInterface, RolePermissionInterface } from "./helpers"
 
 export const Login: React.FC = (props: any) => {
   const [cookies] = useCookies(["jwt"]);
@@ -19,9 +19,23 @@ export const Login: React.FC = (props: any) => {
   if (!jwt) jwt = "";
   if (!auth) auth = "";
 
+  const postChurchRegister = async (church: ChurchInterface) => {
+    await ApiHelper.post("/churchApps/register", { appName: "StreamingLive" }, "AccessApi");
+    await addHostRole(church);
+  }
+
+  const addHostRole = async (church: ChurchInterface) => {
+    let role: RoleInterface = { churchId: church.id, name: "StreamingLive Hosts" };
+    role.id = (await ApiHelper.post("/roles", [role], "AccessApi"))[0].id;
+
+    const permissions: RolePermissionInterface[] = [];
+    permissions.push({ churchId: church.id, apiName: "MessagingApi", contentType: "Chat", action: "Host", roleId: role.id });
+    await ApiHelper.post("/rolepermissions", permissions, "AccessApi");
+  }
+
   return (
     <>
-      <LoginPage auth={auth} context={context} jwt={jwt} successCallback={successCallback} appName="StreamingLive" appUrl={window.location.href} />
+      <LoginPage auth={auth} context={context} jwt={jwt} successCallback={successCallback} appName="StreamingLive" appUrl={window.location.href} registerChurchCallback={postChurchRegister} />
     </>
   );
 
