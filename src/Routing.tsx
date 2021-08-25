@@ -6,8 +6,8 @@ import { Terms } from "./Terms";
 import { Switch, Route, useLocation } from "react-router-dom";
 import ReactGA from "react-ga";
 import { EnvironmentHelper } from "./helpers";
-import { Forgot } from "./Forgot";
 import { Login } from "./Login";
+import { Logout } from "./Logout";
 
 export const Routing: React.FC = () => {
   const location = useLocation();
@@ -19,8 +19,8 @@ export const Routing: React.FC = () => {
 
   return (
     <Switch>
-      <Route path="/forgot"><Forgot /></Route>
       <Route path="/login"><Login /></Route>
+      <Route path="/logout"><Logout /></Route>
       <Route path="/privacy"><Privacy /></Route>
       <Route path="/terms"><Terms /></Route>
       <Route path="/"><Home /></Route>

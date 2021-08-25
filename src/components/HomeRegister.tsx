@@ -20,7 +20,7 @@ export function HomeRegister() {
           <div className="col-lg-6">
             <ErrorMessages errors={customErrors} />
             <div id="registerBox">
-              <Register updateErrors={setCustomErrors} appName="ChurchApps" appUrl={EnvironmentHelper.AccountsAppUrl} />
+              <Register updateErrors={setCustomErrors} appName="StreamingLive" appUrl={window.location.href} />
             </div>
           </div>
         </div>
