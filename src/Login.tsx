@@ -34,9 +34,15 @@ export const Login: React.FC = (props: any) => {
   }
 
   return (
-    <>
-      <LoginPage auth={auth} context={context} jwt={jwt} successCallback={successCallback} appName="StreamingLive" appUrl={window.location.href} registerChurchCallback={postChurchRegister} />
-    </>
+    <LoginPage
+      auth={auth}
+      context={context}
+      jwt={jwt}
+      appName="StreamingLive"
+      appUrl={window.location.href}
+      churchRegisteredCallback={postChurchRegister}
+      successCallback={successCallback}
+    />
   );
 
 };
