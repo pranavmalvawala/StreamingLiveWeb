@@ -1,9 +1,15 @@
 import * as React from "react";
 import { ErrorMessages } from "./"
 import { Register } from "../appBase/pageComponents/components/Register"
+import ReactGA from "react-ga"
+import { EnvironmentHelper, UserInterface } from "../helpers";
 
 export function HomeRegister() {
   const [customErrors, setCustomErrors] = React.useState<string[]>([]);
+
+  const trackUserRegister = async (user: UserInterface) => {
+    if (EnvironmentHelper.GoogleAnalyticsTag !== "") ReactGA.event({ category: "User", action: "Register" });
+  }
 
   return (
     <div id="register">
@@ -20,7 +26,7 @@ export function HomeRegister() {
           <div className="col-lg-6">
             <ErrorMessages errors={customErrors} />
             <div id="registerBox">
-              <Register updateErrors={setCustomErrors} appName="StreamingLive" appUrl={window.location.href} />
+              <Register updateErrors={setCustomErrors} appName="StreamingLive" appUrl={window.location.href} userRegisteredCallback={trackUserRegister} />
             </div>
           </div>
         </div>

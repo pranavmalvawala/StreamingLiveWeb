@@ -2,7 +2,8 @@ import React from "react";
 import { useCookies } from "react-cookie";
 import UserContext from "./UserContext";
 import { LoginPage } from "./appBase/pageComponents/LoginPage";
-import { UserHelper, EnvironmentHelper, ChurchInterface, ApiHelper, RoleInterface, RolePermissionInterface } from "./helpers"
+import { UserHelper, EnvironmentHelper, ChurchInterface, ApiHelper, RoleInterface, RolePermissionInterface, UserInterface } from "./helpers";
+import ReactGA from "react-ga";
 
 export const Login: React.FC = (props: any) => {
   const [cookies] = useCookies(["jwt"]);
@@ -11,6 +12,14 @@ export const Login: React.FC = (props: any) => {
   const successCallback = () => {
     const subDomain = UserHelper.currentChurch.subDomain;
     window.location.href = (EnvironmentHelper.SubUrl.replace("{key}", subDomain) + "/login?jwt=" + jwt);
+  }
+
+  const trackChurchRegister = async (church: ChurchInterface) => {
+    if (EnvironmentHelper.GoogleAnalyticsTag !== "") ReactGA.event({ category: "Church", action: "Register" });
+  }
+
+  const trackUserRegister = async (user: UserInterface) => {
+    if (EnvironmentHelper.GoogleAnalyticsTag !== "") ReactGA.event({ category: "User", action: "Register" });
   }
 
   let search = new URLSearchParams(props.location?.search);
@@ -22,6 +31,7 @@ export const Login: React.FC = (props: any) => {
   const postChurchRegister = async (church: ChurchInterface) => {
     await ApiHelper.post("/churchApps/register", { appName: "StreamingLive" }, "AccessApi");
     await addHostRole(church);
+    trackChurchRegister(church);
   }
 
   const addHostRole = async (church: ChurchInterface) => {
@@ -41,7 +51,8 @@ export const Login: React.FC = (props: any) => {
       appName="StreamingLive"
       appUrl={window.location.href}
       churchRegisteredCallback={postChurchRegister}
-      successCallback={successCallback}
+      loginSuccessOverride={successCallback}
+      userRegisteredCallback={trackUserRegister}
     />
   );
 
