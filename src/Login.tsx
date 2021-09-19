@@ -29,7 +29,6 @@ export const Login: React.FC = (props: any) => {
   if (!auth) auth = "";
 
   const postChurchRegister = async (church: ChurchInterface) => {
-    await ApiHelper.post("/churchApps/register", { appName: "StreamingLive" }, "AccessApi");
     await addHostRole(church);
     trackChurchRegister(church);
   }
