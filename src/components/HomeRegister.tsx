@@ -26,7 +26,12 @@ export function HomeRegister() {
           <div className="col-lg-6">
             <ErrorMessages errors={customErrors} />
             <div id="registerBox">
-              <Register updateErrors={setCustomErrors} appName="StreamingLive" appUrl={window.location.href} userRegisteredCallback={trackUserRegister} />
+              <Register
+                updateErrors={setCustomErrors}
+                appName="StreamingLive"
+                appUrl={window.location.protocol + "//" + window.location.host + "/login"}
+                userRegisteredCallback={trackUserRegister}
+              />
             </div>
           </div>
         </div>
