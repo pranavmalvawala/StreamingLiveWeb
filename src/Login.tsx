@@ -4,6 +4,7 @@ import UserContext from "./UserContext";
 import { LoginPage } from "./appBase/pageComponents/LoginPage";
 import { UserHelper, EnvironmentHelper, ChurchInterface, ApiHelper, RoleInterface, RolePermissionInterface, UserInterface } from "./helpers";
 import ReactGA from "react-ga";
+import { Box } from "@mui/material";
 
 export const Login: React.FC = (props: any) => {
   const [cookies] = useCookies(["jwt"]);
@@ -43,16 +44,18 @@ export const Login: React.FC = (props: any) => {
   }
 
   return (
-    <LoginPage
-      auth={auth}
-      context={context}
-      jwt={jwt}
-      appName="StreamingLive"
-      appUrl={window.location.href}
-      churchRegisteredCallback={postChurchRegister}
-      loginSuccessOverride={successCallback}
-      userRegisteredCallback={trackUserRegister}
-    />
+    <Box style={{ backgroundColor: "#EEE", minHeight: "100vh" }}>
+      <LoginPage
+        auth={auth}
+        context={context}
+        jwt={jwt}
+        appName="StreamingLive"
+        appUrl={window.location.href}
+        churchRegisteredCallback={postChurchRegister}
+        loginSuccessOverride={successCallback}
+        userRegisteredCallback={trackUserRegister}
+      />
+    </Box>
   );
 
 };
