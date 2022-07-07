@@ -1,14 +1,15 @@
 import React from "react";
-import { Header } from "./components"
+import { Header } from "./components";
+import { Container, Box } from "@mui/material";
 
 export const Privacy = () => (
   <>
     <Header />
-    <div className="container">
-      <div className="text-center" style={{ marginBottom: 50, marginTop: 30 }}>
+    <Container className="terms">
+      <Box sx={{textAlign: "center", margin: "30px 0 50px"}}>
         <h1>Privacy Policy</h1>
         <p>Last updated: September 19, 2020</p>
-      </div>
+      </Box>
       <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.</p>
       <p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the <a href="https://www.termsfeed.com/privacy-policy-generator/" target="_blank" rel="noopener noreferrer">Privacy Policy Generator</a>.</p>
       <h2>Interpretation and Definitions</h2>
@@ -166,7 +167,7 @@ export const Privacy = () => (
       <ul>
         <li>By email: support@livecs.org</li>
       </ul>
-    </div>
+    </Container>
 
   </>
 )

@@ -6,6 +6,12 @@
 
 a {
   color: #24b8ff;
+  text-decoration: none;
+}
+
+iframe,
+img {
+  max-width: 100%;
 }
 
 h2 {
@@ -14,6 +20,14 @@ h2 {
 
 h2 span {
   color: #24b9ff;
+}
+
+.text-decoration {
+  text-decoration: none;
+}
+
+.text-decoration:hover {
+  text-decoration: underline;
 }
 
 .btn-primary {
@@ -30,6 +44,24 @@ h2 span {
   background-color: #24b9ff;
 }
 
+.logo {
+  display: flex;
+  margin-right: 20px;
+}
+
+.logo img {
+  max-width: 196px;
+  width: 100%;
+}
+
+.hero-logo {
+  margin-right: 20px;
+}
+
+.hero-logo img {
+  width: 300px;
+}
+
 #hero {
   background-color: #000;
   background-image: url(/images/home-hero.png);
@@ -42,10 +74,6 @@ h2 span {
   background-position-y: center;
 }
 
-#hero img {
-  max-width: 80%;
-}
-
 #hero h1 {
   margin-top: 100px;
   font-size: 60px;
@@ -55,6 +83,7 @@ h2 span {
 #hero p {
   font-size: 40px;
   margin-bottom: 50px;
+  margin-top: 0;
 }
 
 #hero .btn {
@@ -111,7 +140,7 @@ h2 span {
 
 #navbar {
   background-color: #FFF !important;
-  height: 55px;
+  padding: 11px 0;
   margin-bottom: 20px;
   box-shadow: 0px 3px 3px 0px #999;
 }
@@ -166,10 +195,43 @@ h2 span {
   background-image: none;
 }
 
+.terms h1,
+.terms h2,
+.terms h3 {
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.terms h1 {
+  font-size: 40px;
+}
+
+.terms h2 {
+  font-size: 32px;
+}
+
+.terms h2 {
+  font-size: 28px;
+}
+
+.terms p {
+  margin: 0 0 16px 0;
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
 @media (max-width: 600px) {
   #logo {
     height: 25px;
     margin-top: 2px;
     margin-bottom: 2px;
+  }
+  #hero h1 {
+    margin-top: 100px;
+    font-size: 40px;
   }
 }
