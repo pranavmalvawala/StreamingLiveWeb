@@ -36,11 +36,11 @@ export const Login: React.FC = (props: any) => {
 
   const addHostRole = async (church: ChurchInterface) => {
     let role: RoleInterface = { churchId: church.id, name: "StreamingLive Hosts" };
-    role.id = (await ApiHelper.post("/roles", [role], "AccessApi"))[0].id;
+    role.id = (await ApiHelper.post("/roles", [role], "MembershipApi"))[0].id;
 
     const permissions: RolePermissionInterface[] = [];
     permissions.push({ churchId: church.id, apiName: "MessagingApi", contentType: "Chat", action: "Host", roleId: role.id });
-    await ApiHelper.post("/rolepermissions", permissions, "AccessApi");
+    await ApiHelper.post("/rolepermissions", permissions, "MembershipApi");
   }
 
   return (
