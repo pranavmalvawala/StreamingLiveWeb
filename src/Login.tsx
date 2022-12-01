@@ -23,7 +23,7 @@ export const Login: React.FC = (props: any) => {
     if (EnvironmentHelper.GoogleAnalyticsTag !== "") ReactGA.event({ category: "User", action: "Register" });
   }
 
-  let search = new URLSearchParams(props.location?.search);
+  let search = new URLSearchParams(window.location?.search);
   let jwt = search.get("jwt") || cookies.jwt;
   let auth = search.get("auth");
   if (!jwt) jwt = "";
