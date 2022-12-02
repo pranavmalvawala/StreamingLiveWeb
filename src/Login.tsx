@@ -11,7 +11,7 @@ export const Login: React.FC = (props: any) => {
   const context = React.useContext(UserContext);
 
   const successCallback = () => {
-    const subDomain = UserHelper.currentChurch.subDomain;
+    const subDomain = UserHelper.currentUserChurch.church.subDomain;
     window.location.href = (EnvironmentHelper.SubUrl.replace("{key}", subDomain) + "/login?jwt=" + jwt);
   }
 
