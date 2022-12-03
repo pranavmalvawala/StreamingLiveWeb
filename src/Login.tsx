@@ -12,7 +12,7 @@ export const Login: React.FC = (props: any) => {
 
   const successCallback = () => {
     const subDomain = UserHelper.currentUserChurch.church.subDomain;
-    window.location.href = (EnvironmentHelper.SubUrl.replace("{key}", subDomain) + "/login?jwt=" + (jwt || ApiHelper.getConfig("MembershipApi")?.jwt || ""));
+    window.location.href = (EnvironmentHelper.SubUrl.replace("{key}", subDomain) + "/login?jwt=" + (UserHelper.currentUserChurch.jwt));
   }
 
   const trackChurchRegister = async (church: ChurchInterface) => {
